@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -18,395 +18,440 @@
       --bg:          #F7F7F5;
       --white:       #FFFFFF;
       --gray:        #6B7280;
+      --font-en:     'Montserrat', sans-serif;
+      --font-ar:     'Tajawal', sans-serif;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Montserrat', sans-serif;
+      font-family: var(--font-en);
       background: var(--bg);
       color: var(--dark);
+      overflow-x: hidden;
+      transition: font-family 0.3s;
     }
+
+    /* ── RTL MODE ── */
+    html[dir="rtl"] body { font-family: var(--font-ar); }
+    html[dir="rtl"] .nav-logo { letter-spacing: 0; }
+    html[dir="rtl"] .nav-links { flex-direction: row-reverse; }
+    html[dir="rtl"] .section-title::after { left: auto; right: 0; }
+    html[dir="rtl"] .type-row:hover { transform: translateX(-6px); }
+    html[dir="rtl"] .demo-card-body { border-left: none; border-right: 4px solid var(--orange); }
+    html[dir="rtl"] .color-swatch .role { left: auto; right: 10px; }
+    html[dir="rtl"] .section-label,
+    html[dir="rtl"] .section-title,
+    html[dir="rtl"] .stat-label,
+    html[dir="rtl"] .type-meta { letter-spacing: 0; }
+    html[dir="rtl"] nav { flex-direction: row-reverse; }
+    html[dir="rtl"] .hero-sub { letter-spacing: 0; }
+    html[dir="rtl"] .divider-demo .label { letter-spacing: 0; }
+    html[dir="rtl"] .shape-item .caption { letter-spacing: 0; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+    .delay-6 { transition-delay: 0.6s; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 40px;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(18,33,88,0.97);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+    }
+    .nav-logo { font-size: 14px; font-weight: 900; letter-spacing: 2px; color: var(--white); text-transform: uppercase; }
+    .nav-logo span { color: var(--orange); }
+    .nav-links { display: flex; align-items: center; gap: 24px; }
+    .nav-links a {
+      color: rgba(255,255,255,0.7); text-decoration: none;
+      font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; transition: color 0.2s;
+    }
+    html[dir="rtl"] .nav-links a { letter-spacing: 0; font-size: 13px; }
+    .nav-links a:hover { color: var(--orange); }
+
+    /* Lang Toggle */
+    .lang-toggle {
+      display: flex; align-items: center; gap: 0;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .lang-toggle button {
+      background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,0.6); font-family: var(--font-en);
+      font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      padding: 5px 12px; transition: all 0.2s;
+    }
+    .lang-toggle button.active {
+      background: var(--orange); color: var(--white);
+      border-radius: 20px;
+    }
+    .lang-toggle button:hover:not(.active) { color: var(--white); }
 
     /* ── HERO ── */
     .hero {
-      background: var(--navy);
-      color: var(--white);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 60px 24px;
-      position: relative;
-      overflow: hidden;
+      background: var(--navy); min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center; padding: 80px 24px 60px;
+      position: relative; overflow: hidden;
     }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      bottom: -60px; left: -60px;
-      width: 300px; height: 300px;
-      background: var(--navy-light);
-      clip-path: polygon(0 100%, 100% 100%, 50% 0);
-      opacity: 0.3;
+    .hero-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .hero-bg .shape { position: absolute; opacity: 0.07; }
+    .hero-bg .tri-1 {
+      bottom: -80px; left: -60px; width: 0; height: 0;
+      border-left: 200px solid transparent; border-right: 200px solid transparent;
+      border-bottom: 340px solid var(--white);
+      animation: floatUp 8s ease-in-out infinite;
     }
-    .hero::after {
-      content: '';
-      position: absolute;
-      top: -40px; right: -40px;
-      width: 160px; height: 160px;
-      background: var(--orange);
-      transform: rotate(45deg);
-      opacity: 0.15;
+    .hero-bg .tri-2 {
+      top: -100px; right: 80px; width: 0; height: 0;
+      border-left: 120px solid transparent; border-right: 120px solid transparent;
+      border-bottom: 200px solid var(--orange); opacity: 0.12;
+      animation: floatUp 10s ease-in-out infinite reverse;
     }
+    .hero-bg .dia-1 {
+      top: 20%; right: 8%; width: 80px; height: 80px;
+      background: var(--white); transform: rotate(45deg);
+      animation: spin 20s linear infinite;
+    }
+    .hero-bg .dia-2 {
+      bottom: 20%; left: 6%; width: 50px; height: 50px;
+      background: var(--orange); transform: rotate(45deg); opacity: 0.15;
+      animation: spin 15s linear infinite reverse;
+    }
+    .hero-bg .dia-3 {
+      top: 10%; left: 15%; width: 30px; height: 30px;
+      background: var(--white); transform: rotate(45deg);
+      animation: floatUp 6s ease-in-out infinite;
+    }
+    @keyframes floatUp { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+    @keyframes spin { from { transform: rotate(45deg); } to { transform: rotate(405deg); } }
 
     .hero-badge {
-      display: inline-block;
-      background: var(--orange);
-      color: var(--white);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      padding: 6px 18px;
-      border-radius: 20px;
-      margin-bottom: 28px;
+      display: inline-block; background: var(--orange); color: var(--white);
+      font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      padding: 6px 20px; border-radius: 20px; margin-bottom: 28px;
+      animation: fadeDown 0.8s ease both;
+      transition: letter-spacing 0.3s;
     }
+    html[dir="rtl"] .hero-badge { letter-spacing: 0; font-size: 13px; }
 
     .hero h1 {
-      font-size: clamp(2rem, 6vw, 4rem);
-      font-weight: 900;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      line-height: 1.1;
+      font-size: clamp(2.4rem, 7vw, 5rem); font-weight: 900;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--white); line-height: 1.05;
+      animation: fadeDown 0.9s ease 0.1s both;
     }
-
     .hero h1 span { color: var(--orange); }
-
-    .hero-ar {
-      font-family: 'Tajawal', sans-serif;
-      font-size: clamp(1.4rem, 4vw, 2.5rem);
-      font-weight: 900;
-      color: var(--orange-light);
-      margin-top: 12px;
-      direction: rtl;
-    }
+    html[dir="rtl"] .hero h1 { font-family: var(--font-ar); letter-spacing: 0; }
 
     .hero-sub {
-      margin-top: 16px;
-      font-size: clamp(11px, 2vw, 14px);
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
+      margin-top: 14px; font-size: clamp(10px, 2vw, 13px);
+      font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); animation: fadeDown 1s ease 0.3s both;
     }
-
-    .divider {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      margin: 36px auto;
-      width: min(600px, 80%);
+    .hero-divider {
+      display: flex; flex-direction: column; gap: 3px;
+      margin: 36px auto; width: min(500px, 75%);
+      animation: expandWidth 1s ease 0.4s both;
     }
-    .divider .thick { height: 4px; background: var(--white); opacity: 0.9; }
-    .divider .thin  { height: 2px; background: var(--white); opacity: 0.35; }
-
+    @keyframes expandWidth { from { width: 0; opacity: 0; } to { width: min(500px, 75%); opacity: 1; } }
+    .hero-divider .thick { height: 4px; background: var(--white); opacity: 0.8; }
+    .hero-divider .thin  { height: 2px; background: var(--white); opacity: 0.3; }
     .hero-info {
-      display: flex;
-      gap: 40px;
-      flex-wrap: wrap;
-      justify-content: center;
-      font-size: 13px;
-      color: rgba(255,255,255,0.75);
+      display: flex; gap: 36px; flex-wrap: wrap; justify-content: center;
+      font-size: 12px; color: rgba(255,255,255,0.65);
+      animation: fadeDown 1s ease 0.5s both;
     }
     .hero-info span { display: flex; align-items: center; gap: 8px; }
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
     .scroll-hint {
-      position: absolute;
-      bottom: 28px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 11px;
-      letter-spacing: 2px;
-      color: rgba(255,255,255,0.4);
-      text-transform: uppercase;
-      animation: bounce 2s infinite;
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+      font-size: 10px; letter-spacing: 3px; color: rgba(255,255,255,0.35);
+      text-transform: uppercase; animation: bounce 2s 1.5s infinite both;
     }
     @keyframes bounce {
-      0%,100% { transform: translateX(-50%) translateY(0); }
-      50%      { transform: translateX(-50%) translateY(6px); }
+      0%,100% { transform: translateX(-50%) translateY(0); opacity: 0.35; }
+      50%      { transform: translateX(-50%) translateY(8px); opacity: 0.7; }
     }
 
-    /* ── SECTION WRAPPER ── */
-    .section {
-      padding: 80px 24px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+    /* ── DIVIDER ── */
+    .full-divider { display: flex; flex-direction: column; gap: 3px; }
+    .full-divider .t { height: 4px; background: var(--navy); }
+    .full-divider .n { height: 2px; background: var(--navy); opacity: 0.3; }
 
-    .section-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 10px;
-    }
-
+    /* ── SECTION ── */
+    .section { padding: 90px 24px; max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
     .section-title {
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
-      font-weight: 900;
-      color: var(--navy);
-      margin-bottom: 48px;
-      position: relative;
-      padding-bottom: 16px;
+      font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 900; color: var(--navy);
+      margin-bottom: 48px; position: relative; padding-bottom: 16px;
     }
     .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 60px; height: 4px;
-      background: var(--orange);
-      border-radius: 2px;
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 4px; background: var(--orange);
+      border-radius: 2px; transition: width 0.8s ease 0.3s;
     }
+    .section-title.visible::after { width: 60px; }
 
     /* ── COLORS ── */
-    .colors-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 20px;
-    }
-
+    .colors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
     .color-card {
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 16px rgba(27,48,116,0.12);
-      transition: transform 0.2s, box-shadow 0.2s;
+      border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 16px rgba(27,48,116,0.1);
+      cursor: pointer; transition: transform 0.25s, box-shadow 0.25s;
     }
-    .color-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(27,48,116,0.2);
-    }
-
-    .color-swatch {
-      height: 100px;
-      position: relative;
-    }
+    .color-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 12px 32px rgba(27,48,116,0.2); }
+    .color-swatch { height: 100px; position: relative; }
     .color-swatch .role {
-      position: absolute;
-      bottom: 8px; left: 10px;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.8);
+      position: absolute; bottom: 8px; left: 10px;
+      font-size: 9px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: rgba(255,255,255,0.75);
     }
-    .color-info {
-      background: var(--white);
-      padding: 12px 14px;
-    }
+    .color-info { background: var(--white); padding: 12px 14px; }
     .color-name { font-size: 13px; font-weight: 700; color: var(--dark); }
     .color-hex  { font-size: 11px; color: var(--gray); font-family: monospace; margin-top: 2px; }
 
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--navy-dark); color: var(--white);
+      padding: 10px 24px; border-radius: 24px;
+      font-size: 12px; font-weight: 600; letter-spacing: 1px;
+      opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 999;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
     /* ── SHAPES ── */
-    .shapes-section { background: var(--navy); padding: 80px 24px; }
-    .shapes-inner   { max-width: 1100px; margin: 0 auto; }
+    .shapes-section { background: var(--navy); padding: 90px 24px; }
+    .shapes-inner { max-width: 1100px; margin: 0 auto; }
     .shapes-section .section-label { color: var(--orange-light); }
     .shapes-section .section-title { color: var(--white); }
     .shapes-section .section-title::after { background: var(--orange); }
-
-    .shapes-grid {
-      display: flex;
-      gap: 60px;
-      flex-wrap: wrap;
-      align-items: flex-end;
-    }
+    .shapes-grid { display: flex; gap: 70px; flex-wrap: wrap; align-items: flex-end; }
     .shape-item { text-align: center; }
     .shape-item .caption {
-      margin-top: 16px;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
+      margin-top: 18px; font-size: 11px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.5);
     }
-
     .tri {
       width: 0; height: 0;
-      border-left:  60px solid transparent;
-      border-right: 60px solid transparent;
-      border-bottom: 104px solid var(--white);
-      opacity: 0.9;
+      border-left: 65px solid transparent; border-right: 65px solid transparent;
+      border-bottom: 112px solid var(--white); opacity: 0.9;
+      transition: transform 0.4s ease, opacity 0.4s ease;
     }
-    .tri-orange {
-      border-bottom-color: var(--orange);
-      width: 0; height: 0;
-      border-left:  30px solid transparent;
-      border-right: 30px solid transparent;
-      border-bottom: 52px solid var(--orange);
-      margin: 0 auto 8px;
-    }
+    .tri:hover { transform: scale(1.1) translateY(-6px); opacity: 1; }
     .diamond {
-      width: 70px; height: 70px;
-      background: var(--dark);
-      transform: rotate(45deg);
-      margin: 0 auto;
+      width: 72px; height: 72px; background: var(--dark);
+      transform: rotate(45deg); margin: 0 auto;
+      transition: transform 0.4s ease;
     }
-    .divider-demo {
-      flex: 1;
-      min-width: 200px;
-    }
+    .diamond:hover { transform: rotate(225deg) scale(1.1); }
+    .divider-demo { flex: 1; min-width: 220px; }
     .divider-demo .label {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 16px;
+      font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 18px;
     }
     .d-thick { height: 5px; background: var(--white); border-radius: 2px; }
     .d-gap   { height: 3px; }
-    .d-thin  { height: 2px; background: var(--white); opacity: 0.4; border-radius: 2px; }
+    .d-thin  { height: 2px; background: var(--white); opacity: 0.35; border-radius: 2px; }
 
     /* ── TYPOGRAPHY ── */
     .type-grid { display: flex; flex-direction: column; gap: 20px; }
     .type-row {
-      background: var(--white);
-      border-radius: 12px;
-      padding: 24px 28px;
-      box-shadow: 0 2px 10px rgba(27,48,116,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
+      background: var(--white); border-radius: 12px; padding: 24px 28px;
+      box-shadow: 0 2px 10px rgba(27,48,116,0.07);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px; transition: box-shadow 0.3s, transform 0.3s;
     }
-    .type-meta { font-size: 11px; color: var(--gray); font-family: monospace; min-width: 180px; }
-    .type-meta div { margin-bottom: 3px; }
+    .type-row:hover { box-shadow: 0 8px 24px rgba(27,48,116,0.14); transform: translateX(6px); }
+    .type-meta { font-size: 11px; color: var(--gray); font-family: monospace; min-width: 180px; line-height: 1.8; }
 
     /* ── BUTTONS ── */
     .btn-grid { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
     .btn {
-      padding: 13px 28px;
-      border-radius: 6px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      cursor: pointer;
-      border: none;
-      transition: all 0.2s;
+      padding: 13px 30px; border-radius: 6px; font-family: inherit;
+      font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      cursor: pointer; border: none; position: relative; overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .btn:hover { transform: translateY(-2px); }
+    html[dir="rtl"] .btn { letter-spacing: 0; font-size: 14px; text-transform: none; }
+    .btn::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,0.15); opacity: 0; transition: opacity 0.2s;
+    }
+    .btn:hover::after { opacity: 1; }
+    .btn:hover { transform: translateY(-3px); }
+    .btn:active { transform: translateY(0); }
     .btn-primary { background: var(--navy); color: var(--white); }
-    .btn-primary:hover { background: var(--navy-dark); box-shadow: 0 6px 20px rgba(27,48,116,0.3); }
+    .btn-primary:hover { box-shadow: 0 8px 24px rgba(27,48,116,0.35); }
     .btn-accent  { background: var(--orange); color: var(--white); }
-    .btn-accent:hover { background: #d96c0e; box-shadow: 0 6px 20px rgba(240,125,26,0.35); }
+    .btn-accent:hover { box-shadow: 0 8px 24px rgba(240,125,26,0.4); }
     .btn-outline { background: transparent; color: var(--navy); border: 2px solid var(--navy); }
-    .btn-outline:hover { background: var(--navy); color: var(--white); }
+    .btn-outline:hover { background: var(--navy); color: var(--white); box-shadow: 0 8px 24px rgba(27,48,116,0.25); }
     .btn-outline-accent { background: transparent; color: var(--orange); border: 2px solid var(--orange); }
     .btn-outline-accent:hover { background: var(--orange); color: var(--white); }
 
-    /* ── CARD DEMO ── */
+    /* ── CARDS ── */
     .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
     .demo-card {
-      background: var(--white);
-      border-radius: 12px;
-      overflow: hidden;
+      background: var(--white); border-radius: 14px; overflow: hidden;
       box-shadow: 0 4px 16px rgba(27,48,116,0.1);
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
     }
-    .demo-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(27,48,116,0.18); }
-    .demo-card-top { background: var(--navy); padding: 20px 24px; color: var(--white); }
-    .demo-card-top .tag {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--orange-light);
-      margin-bottom: 8px;
-    }
+    .demo-card:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 16px 40px rgba(27,48,116,0.2); }
+    .demo-card-top { background: var(--navy); padding: 22px 26px; color: var(--white); }
+    .demo-card-top .tag { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--orange-light); margin-bottom: 8px; }
+    html[dir="rtl"] .demo-card-top .tag { letter-spacing: 0; font-size: 12px; text-transform: none; }
     .demo-card-top h3 { font-size: 17px; font-weight: 700; }
-    .demo-card-body { padding: 20px 24px; border-left: 4px solid var(--orange); }
+    .demo-card-body { padding: 22px 26px; border-left: 4px solid var(--orange); }
     .demo-card-body p { font-size: 13px; color: var(--gray); line-height: 1.7; }
-    .demo-card-body .btn { margin-top: 16px; font-size: 11px; padding: 9px 18px; }
+    .demo-card-body .btn { margin-top: 18px; font-size: 11px; padding: 9px 18px; }
+
+    /* ── STATS ── */
+    .stats-section { background: var(--navy); padding: 80px 24px; }
+    .stats-inner { max-width: 1100px; margin: 0 auto; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 40px; text-align: center; }
+    .stat-number { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; color: var(--white); line-height: 1; }
+    .stat-number span { color: var(--orange); }
+    .stat-label { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 10px; }
 
     /* ── FOOTER ── */
-    footer {
-      background: var(--navy-dark);
-      color: rgba(255,255,255,0.6);
-      text-align: center;
-      padding: 32px 24px;
-      font-size: 12px;
-      letter-spacing: 1px;
-    }
+    footer { background: var(--navy-dark); color: rgba(255,255,255,0.5); text-align: center; padding: 36px 24px; font-size: 12px; letter-spacing: 1px; }
     footer strong { color: var(--orange); }
+    footer .footer-divider { display: flex; flex-direction: column; gap: 3px; width: 200px; margin: 0 auto 20px; }
+    footer .footer-divider .t { height: 3px; background: var(--navy-light); border-radius: 2px; }
+    footer .footer-divider .n { height: 1px; background: var(--navy-light); opacity: 0.4; border-radius: 2px; }
 
-    /* ── SECTION DIVIDER ── */
-    .full-divider {
-      display: flex; flex-direction: column; gap: 3px;
-      background: var(--bg);
-      padding: 0;
+    /* ── CURSOR ── */
+    .cursor-dot { width: 8px; height: 8px; background: var(--orange); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; mix-blend-mode: screen; }
+    .cursor-ring { width: 32px; height: 32px; border: 2px solid rgba(240,125,26,0.5); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transition: width 0.2s, height 0.2s; }
+
+    @media (max-width: 640px) {
+      nav { padding: 14px 20px; }
+      .nav-links a { display: none; }
+      .shapes-grid { gap: 40px; }
     }
-    .full-divider .t { height: 4px; background: var(--navy); }
-    .full-divider .n { height: 2px; background: var(--navy); opacity: 0.3; }
   </style>
 </head>
 <body>
 
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="toast" id="toast"></div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-logo">Diqat <span>Al</span>emaar</div>
+    <div class="nav-links">
+      <a href="#colors"     data-en="Colors"      data-ar="الألوان">Colors</a>
+      <a href="#shapes"     data-en="Shapes"      data-ar="الأشكال">Shapes</a>
+      <a href="#typography" data-en="Typography"  data-ar="الخطوط">Typography</a>
+      <a href="#components" data-en="Components"  data-ar="المكونات">Components</a>
+      <div class="lang-toggle">
+        <button id="btnEN" class="active" onclick="setLang('en')">EN</button>
+        <button id="btnAR" onclick="setLang('ar')">ع</button>
+      </div>
+    </div>
+  </nav>
+
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-badge">Brand Identity 2024</div>
-    <h1>Diqat <span>Al</span>emaar</h1>
-    <div class="hero-ar">شركة دقة الإعمار</div>
-    <div class="hero-sub">Contracting &amp; Oil Services — General Trading</div>
-    <div class="divider">
-      <div class="thick"></div>
-      <div class="thin"></div>
+    <div class="hero-bg">
+      <div class="shape tri-1"></div>
+      <div class="shape tri-2"></div>
+      <div class="shape dia-1"></div>
+      <div class="shape dia-2"></div>
+      <div class="shape dia-3"></div>
     </div>
+    <div class="hero-badge" data-en="Brand Identity — Est. 2007" data-ar="هوية الشركة — تأسست 2007">Brand Identity — Est. 2007</div>
+    <h1 data-en='Diqat <span>Al</span>emaar' data-ar='دقة <span>الإعمار</span>'>Diqat <span>Al</span>emaar</h1>
+    <div class="hero-sub" data-en="Contracting &amp; Oil Services — General Trading" data-ar="المقاولات والخدمات النفطية — التجارة العامة">Contracting &amp; Oil Services — General Trading</div>
+    <div class="hero-divider"><div class="thick"></div><div class="thin"></div></div>
     <div class="hero-info">
       <span>📞 07833033777</span>
       <span>✉ d.alemaar@yahoo.com</span>
       <span>📍 البصرة - كوت الحجاج</span>
     </div>
-    <div class="scroll-hint">▼ scroll to explore</div>
+    <div class="scroll-hint" data-en="▼ scroll" data-ar="▼ مرر للأسفل">▼ scroll</div>
   </section>
 
+  <!-- STATS -->
+  <section class="stats-section">
+    <div class="stats-inner">
+      <div class="stats-grid">
+        <div class="reveal">
+          <div class="stat-number" data-target="18"><span>0</span>+</div>
+          <div class="stat-label" data-en="Years Active" data-ar="سنة من العمل">Years Active</div>
+        </div>
+        <div class="reveal delay-2">
+          <div class="stat-number" data-target="2"><span>0</span></div>
+          <div class="stat-label" data-en="Brand Colors" data-ar="ألوان العلامة">Brand Colors</div>
+        </div>
+        <div class="reveal delay-3">
+          <div class="stat-number" data-target="3"><span>0</span></div>
+          <div class="stat-label" data-en="Core Shapes" data-ar="أشكال أساسية">Core Shapes</div>
+        </div>
+        <div class="reveal delay-4">
+          <div class="stat-number" data-target="2"><span>0</span></div>
+          <div class="stat-label" data-en="Languages" data-ar="لغتان">Languages</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="full-divider"><div class="t"></div><div class="n"></div></div>
+
   <!-- COLORS -->
-  <section class="section">
-    <div class="section-label">01 — Palette</div>
-    <div class="section-title">Brand Colors</div>
-    <div class="colors-grid">
-      <div class="color-card">
-        <div class="color-swatch" style="background:#1B3074;"><span class="role">Primary</span></div>
-        <div class="color-info"><div class="color-name">Navy Blue</div><div class="color-hex">#1B3074</div></div>
-      </div>
-      <div class="color-card">
-        <div class="color-swatch" style="background:#F07D1A;"><span class="role">Accent</span></div>
-        <div class="color-info"><div class="color-name">Orange</div><div class="color-hex">#F07D1A</div></div>
-      </div>
-      <div class="color-card">
-        <div class="color-swatch" style="background:#122158;"><span class="role">Dark</span></div>
-        <div class="color-info"><div class="color-name">Navy Dark</div><div class="color-hex">#122158</div></div>
-      </div>
-      <div class="color-card">
-        <div class="color-swatch" style="background:#2A4499;"><span class="role">Light</span></div>
-        <div class="color-info"><div class="color-name">Navy Light</div><div class="color-hex">#2A4499</div></div>
-      </div>
-      <div class="color-card">
-        <div class="color-swatch" style="background:#F9A04A;"><span class="role">Light</span></div>
-        <div class="color-info"><div class="color-name">Orange Light</div><div class="color-hex">#F9A04A</div></div>
-      </div>
-      <div class="color-card">
-        <div class="color-swatch" style="background:#1A1A1A;"><span class="role">Base</span></div>
-        <div class="color-info"><div class="color-name">Near Black</div><div class="color-hex">#1A1A1A</div></div>
-      </div>
-      <div class="color-card">
-        <div class="color-swatch" style="background:#F7F7F5; outline:1px solid #e4e4e4;"><span class="role" style="color:#999;">Background</span></div>
-        <div class="color-info"><div class="color-name">Off White</div><div class="color-hex">#F7F7F5</div></div>
+  <section id="colors">
+    <div class="section">
+      <div class="section-label reveal" data-en="01 — Palette" data-ar="٠١ — لوحة الألوان">01 — Palette</div>
+      <div class="section-title reveal" data-en='Brand Colors <small style="font-size:13px;font-weight:400;color:var(--gray);margin-inline-start:12px;">click to copy hex</small>' data-ar='ألوان العلامة التجارية <small style="font-size:13px;font-weight:400;color:var(--gray);margin-inline-start:12px;">انقر لنسخ الكود</small>'>Brand Colors <small style="font-size:13px;font-weight:400;color:var(--gray);margin-left:12px;">click to copy hex</small></div>
+      <div class="colors-grid">
+        <div class="color-card reveal delay-1" onclick="copyHex('#1B3074', this)">
+          <div class="color-swatch" style="background:#1B3074;"><span class="role" data-en="Primary" data-ar="الرئيسي">Primary</span></div>
+          <div class="color-info"><div class="color-name" data-en="Navy Blue" data-ar="أزرق نيفي">Navy Blue</div><div class="color-hex">#1B3074</div></div>
+        </div>
+        <div class="color-card reveal delay-2" onclick="copyHex('#F07D1A', this)">
+          <div class="color-swatch" style="background:#F07D1A;"><span class="role" data-en="Accent" data-ar="التمييز">Accent</span></div>
+          <div class="color-info"><div class="color-name" data-en="Orange" data-ar="البرتقالي">Orange</div><div class="color-hex">#F07D1A</div></div>
+        </div>
+        <div class="color-card reveal delay-3" onclick="copyHex('#122158', this)">
+          <div class="color-swatch" style="background:#122158;"><span class="role" data-en="Dark" data-ar="داكن">Dark</span></div>
+          <div class="color-info"><div class="color-name" data-en="Navy Dark" data-ar="نيفي غامق">Navy Dark</div><div class="color-hex">#122158</div></div>
+        </div>
+        <div class="color-card reveal delay-4" onclick="copyHex('#2A4499', this)">
+          <div class="color-swatch" style="background:#2A4499;"><span class="role" data-en="Light" data-ar="فاتح">Light</span></div>
+          <div class="color-info"><div class="color-name" data-en="Navy Light" data-ar="نيفي فاتح">Navy Light</div><div class="color-hex">#2A4499</div></div>
+        </div>
+        <div class="color-card reveal delay-5" onclick="copyHex('#F9A04A', this)">
+          <div class="color-swatch" style="background:#F9A04A;"><span class="role" data-en="Light" data-ar="فاتح">Light</span></div>
+          <div class="color-info"><div class="color-name" data-en="Orange Light" data-ar="برتقالي فاتح">Orange Light</div><div class="color-hex">#F9A04A</div></div>
+        </div>
+        <div class="color-card reveal delay-6" onclick="copyHex('#1A1A1A', this)">
+          <div class="color-swatch" style="background:#1A1A1A;"><span class="role" data-en="Base" data-ar="أساسي">Base</span></div>
+          <div class="color-info"><div class="color-name" data-en="Near Black" data-ar="شبه أسود">Near Black</div><div class="color-hex">#1A1A1A</div></div>
+        </div>
+        <div class="color-card reveal delay-6" onclick="copyHex('#F7F7F5', this)">
+          <div class="color-swatch" style="background:#F7F7F5; outline:1px solid #ddd;"><span class="role" style="color:#aaa;" data-en="BG" data-ar="خلفية">BG</span></div>
+          <div class="color-info"><div class="color-name" data-en="Off White" data-ar="أبيض مائل">Off White</div><div class="color-hex">#F7F7F5</div></div>
+        </div>
       </div>
     </div>
   </section>
@@ -414,24 +459,22 @@
   <div class="full-divider"><div class="t"></div><div class="n"></div></div>
 
   <!-- SHAPES -->
-  <section class="shapes-section">
+  <section id="shapes" class="shapes-section">
     <div class="shapes-inner">
-      <div class="section-label">02 — Identity</div>
-      <div class="section-title">Brand Shapes & Divider</div>
+      <div class="section-label reveal" data-en="02 — Identity" data-ar="٠٢ — الهوية البصرية">02 — Identity</div>
+      <div class="section-title reveal" data-en="Brand Shapes &amp; Divider" data-ar="أشكال العلامة والفاصل">Brand Shapes &amp; Divider</div>
       <div class="shapes-grid">
-        <div class="shape-item">
+        <div class="shape-item reveal delay-1">
           <div class="tri"></div>
-          <div class="caption">Blue Triangle</div>
+          <div class="caption" data-en="Blue Triangle" data-ar="المثلث الأزرق">Blue Triangle</div>
         </div>
-        <div class="shape-item">
+        <div class="shape-item reveal delay-2">
           <div class="diamond"></div>
-          <div class="caption">Black Diamond</div>
+          <div class="caption" data-en="Black Diamond" data-ar="المعين الأسود">Black Diamond</div>
         </div>
-        <div class="divider-demo">
-          <div class="label">Letterhead Divider</div>
-          <div class="d-thick"></div>
-          <div class="d-gap"></div>
-          <div class="d-thin"></div>
+        <div class="divider-demo reveal delay-3">
+          <div class="label" data-en="Letterhead Divider" data-ar="فاصل الورق الرسمي">Letterhead Divider</div>
+          <div class="d-thick"></div><div class="d-gap"></div><div class="d-thin"></div>
         </div>
       </div>
     </div>
@@ -440,48 +483,34 @@
   <div class="full-divider"><div class="t"></div><div class="n"></div></div>
 
   <!-- TYPOGRAPHY -->
-  <section class="section">
-    <div class="section-label">03 — Typography</div>
-    <div class="section-title">Typefaces</div>
-    <div class="type-grid">
-      <div class="type-row">
-        <div style="font-family:'Montserrat',sans-serif; font-size:2.2rem; font-weight:900; color:var(--navy); text-transform:uppercase; letter-spacing:2px;">
-          DIQAT ALEMAAR CO.
+  <section id="typography">
+    <div class="section">
+      <div class="section-label reveal" data-en="03 — Typography" data-ar="٠٣ — الخطوط">03 — Typography</div>
+      <div class="section-title reveal" data-en="Typefaces" data-ar="أنواع الخطوط">Typefaces</div>
+      <div class="type-grid">
+        <div class="type-row reveal delay-1">
+          <div style="font-family:'Montserrat',sans-serif; font-size:clamp(1.4rem,3vw,2.2rem); font-weight:900; color:var(--navy); text-transform:uppercase; letter-spacing:2px;">
+            DIQAT ALEMAAR CO.
+          </div>
+          <div class="type-meta" data-en="Font: Montserrat&#10;Weight: 900&#10;Use: Company name EN" data-ar="الخط: Montserrat&#10;الوزن: 900&#10;الاستخدام: اسم الشركة بالإنجليزية">Font: Montserrat<br>Weight: 900<br>Use: Company name EN</div>
         </div>
-        <div class="type-meta">
-          <div>Font: Montserrat</div>
-          <div>Weight: 900 (Black)</div>
-          <div>Use: Company name EN</div>
+        <div class="type-row reveal delay-2">
+          <div style="font-family:'Montserrat',sans-serif; font-size:clamp(0.7rem,1.5vw,0.85rem); font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px;">
+            CONTRACTING &amp; OIL SERVICES AND GENERAL TRADING
+          </div>
+          <div class="type-meta" data-en="Font: Montserrat&#10;Weight: 700&#10;Use: Tagline EN" data-ar="الخط: Montserrat&#10;الوزن: 700&#10;الاستخدام: الشعار بالإنجليزية">Font: Montserrat<br>Weight: 700<br>Use: Tagline EN</div>
         </div>
-      </div>
-      <div class="type-row">
-        <div style="font-family:'Montserrat',sans-serif; font-size:0.85rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px;">
-          CONTRACTING &amp; OIL SERVICES AND GENERAL TRADING
+        <div class="type-row reveal delay-3">
+          <div style="font-family:'Tajawal',sans-serif; font-size:clamp(1.5rem,3vw,2.2rem); font-weight:900; color:var(--navy); direction:rtl;">
+            شركة دقة الإعمار
+          </div>
+          <div class="type-meta" data-en="Font: Tajawal&#10;Weight: 900&#10;Use: Company name AR" data-ar="الخط: تجوال&#10;الوزن: 900&#10;الاستخدام: اسم الشركة بالعربية">Font: Tajawal<br>Weight: 900<br>Use: Company name AR</div>
         </div>
-        <div class="type-meta">
-          <div>Font: Montserrat</div>
-          <div>Weight: 700 / Orange</div>
-          <div>Use: Tagline EN</div>
-        </div>
-      </div>
-      <div class="type-row">
-        <div style="font-family:'Tajawal',sans-serif; font-size:2.2rem; font-weight:900; color:var(--navy); direction:rtl;">
-          شركة دقة الإعمار
-        </div>
-        <div class="type-meta">
-          <div>Font: Tajawal</div>
-          <div>Weight: 900 (Black)</div>
-          <div>Use: Company name AR</div>
-        </div>
-      </div>
-      <div class="type-row">
-        <div style="font-family:'Tajawal',sans-serif; font-size:1rem; font-weight:700; color:var(--orange); direction:rtl;">
-          للمقاولات والخدمات النفطية والتجارة العامة
-        </div>
-        <div class="type-meta">
-          <div>Font: Tajawal</div>
-          <div>Weight: 700 / Orange</div>
-          <div>Use: Tagline AR</div>
+        <div class="type-row reveal delay-4">
+          <div style="font-family:'Tajawal',sans-serif; font-size:clamp(0.8rem,1.5vw,1rem); font-weight:700; color:var(--orange); direction:rtl;">
+            للمقاولات والخدمات النفطية والتجارة العامة
+          </div>
+          <div class="type-meta" data-en="Font: Tajawal&#10;Weight: 700&#10;Use: Tagline AR" data-ar="الخط: تجوال&#10;الوزن: 700&#10;الاستخدام: الشعار بالعربية">Font: Tajawal<br>Weight: 700<br>Use: Tagline AR</div>
         </div>
       </div>
     </div>
@@ -489,53 +518,50 @@
 
   <div class="full-divider"><div class="t"></div><div class="n"></div></div>
 
-  <!-- BUTTONS -->
-  <section class="section">
-    <div class="section-label">04 — UI Elements</div>
-    <div class="section-title">Buttons</div>
-    <div class="btn-grid">
-      <button class="btn btn-primary">Primary</button>
-      <button class="btn btn-accent">Accent</button>
-      <button class="btn btn-outline">Outline Navy</button>
-      <button class="btn btn-outline-accent">Outline Orange</button>
-    </div>
-  </section>
-
-  <div class="full-divider"><div class="t"></div><div class="n"></div></div>
-
-  <!-- CARDS -->
-  <section class="section">
-    <div class="section-label">05 — Components</div>
-    <div class="section-title">Cards</div>
-    <div class="cards-grid">
-      <div class="demo-card">
-        <div class="demo-card-top">
-          <div class="tag">Contracting</div>
-          <h3>Oil Field Services</h3>
-        </div>
-        <div class="demo-card-body">
-          <p>Providing specialized contracting and oil services across the region since 2007.</p>
-          <button class="btn btn-primary">Learn More</button>
-        </div>
+  <!-- COMPONENTS -->
+  <section id="components">
+    <div class="section">
+      <div class="section-label reveal" data-en="04 — UI Elements" data-ar="٠٤ — عناصر الواجهة">04 — UI Elements</div>
+      <div class="section-title reveal" data-en="Buttons" data-ar="الأزرار">Buttons</div>
+      <div class="btn-grid" style="margin-bottom:80px;">
+        <button class="btn btn-primary reveal delay-1"        data-en="Primary"       data-ar="رئيسي">Primary</button>
+        <button class="btn btn-accent reveal delay-2"         data-en="Accent"        data-ar="مميز">Accent</button>
+        <button class="btn btn-outline reveal delay-3"        data-en="Outline Navy"  data-ar="إطار أزرق">Outline Navy</button>
+        <button class="btn btn-outline-accent reveal delay-4" data-en="Outline Orange" data-ar="إطار برتقالي">Outline Orange</button>
       </div>
-      <div class="demo-card">
-        <div class="demo-card-top">
-          <div class="tag">Trading</div>
-          <h3>General Trading</h3>
+
+      <div class="section-label reveal" data-en="05 — Components" data-ar="٠٥ — المكونات">05 — Components</div>
+      <div class="section-title reveal" data-en="Cards" data-ar="البطاقات">Cards</div>
+      <div class="cards-grid">
+        <div class="demo-card reveal delay-1">
+          <div class="demo-card-top">
+            <div class="tag" data-en="Contracting" data-ar="المقاولات">Contracting</div>
+            <h3 data-en="Oil Field Services" data-ar="خدمات حقول النفط">Oil Field Services</h3>
+          </div>
+          <div class="demo-card-body">
+            <p data-en="Providing specialized contracting and oil services across the region since 2007." data-ar="تقديم خدمات المقاولات والنفط المتخصصة في المنطقة منذ عام 2007.">Providing specialized contracting and oil services across the region since 2007.</p>
+            <button class="btn btn-primary" data-en="Learn More" data-ar="اقرأ أكثر">Learn More</button>
+          </div>
         </div>
-        <div class="demo-card-body">
-          <p>Comprehensive general trading solutions tailored to client needs and market demands.</p>
-          <button class="btn btn-accent">Learn More</button>
+        <div class="demo-card reveal delay-2">
+          <div class="demo-card-top">
+            <div class="tag" data-en="Trading" data-ar="التجارة">Trading</div>
+            <h3 data-en="General Trading" data-ar="التجارة العامة">General Trading</h3>
+          </div>
+          <div class="demo-card-body">
+            <p data-en="Comprehensive general trading solutions tailored to client needs and market demands." data-ar="حلول تجارية شاملة مصممة وفق احتياجات العملاء ومتطلبات السوق.">Comprehensive general trading solutions tailored to client needs and market demands.</p>
+            <button class="btn btn-accent" data-en="Learn More" data-ar="اقرأ أكثر">Learn More</button>
+          </div>
         </div>
-      </div>
-      <div class="demo-card">
-        <div class="demo-card-top">
-          <div class="tag">Projects</div>
-          <h3>Infrastructure</h3>
-        </div>
-        <div class="demo-card-body">
-          <p>End-to-end project management for infrastructure and industrial developments.</p>
-          <button class="btn btn-outline">Learn More</button>
+        <div class="demo-card reveal delay-3">
+          <div class="demo-card-top">
+            <div class="tag" data-en="Projects" data-ar="المشاريع">Projects</div>
+            <h3 data-en="Infrastructure" data-ar="البنية التحتية">Infrastructure</h3>
+          </div>
+          <div class="demo-card-body">
+            <p data-en="End-to-end project management for infrastructure and industrial developments." data-ar="إدارة شاملة للمشاريع الإنشائية والصناعية من البداية حتى التسليم.">End-to-end project management for infrastructure and industrial developments.</p>
+            <button class="btn btn-outline" data-en="Learn More" data-ar="اقرأ أكثر">Learn More</button>
+          </div>
         </div>
       </div>
     </div>
@@ -543,8 +569,87 @@
 
   <!-- FOOTER -->
   <footer>
-    <strong>DIQAT ALEMAAR CO.</strong> — Brand Identity Reference &nbsp;|&nbsp; Est. 2007 &nbsp;|&nbsp; البصرة، العراق
+    <div class="footer-divider"><div class="t"></div><div class="n"></div></div>
+    <span data-en="<strong>DIQAT ALEMAAR CO.</strong> — Brand Identity Reference &nbsp;|&nbsp; Est. 2007 &nbsp;|&nbsp; البصرة، العراق"
+          data-ar="<strong>شركة دقة الإعمار</strong> — مرجع الهوية البصرية &nbsp;|&nbsp; تأسست 2007 &nbsp;|&nbsp; البصرة، العراق">
+      <strong>DIQAT ALEMAAR CO.</strong> — Brand Identity Reference &nbsp;|&nbsp; Est. 2007 &nbsp;|&nbsp; البصرة، العراق
+    </span>
   </footer>
 
+  <script>
+    // ── Language Toggle ──
+    const translations = {};
+
+    function setLang(lang) {
+      const html = document.documentElement;
+      html.lang = lang;
+      html.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+
+      document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+      document.getElementById('btnAR').classList.toggle('active', lang === 'ar');
+
+      document.querySelectorAll('[data-en][data-ar]').forEach(el => {
+        const val = el.getAttribute('data-' + lang);
+        if (val !== null) el.innerHTML = val;
+      });
+
+      // update type-meta (uses \n line breaks stored in data attr)
+      document.querySelectorAll('.type-meta[data-en][data-ar]').forEach(el => {
+        el.innerHTML = el.getAttribute('data-' + lang).replace(/\n/g, '<br>');
+      });
+    }
+
+    // ── Scroll Reveal ──
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal, .section-title').forEach(el => observer.observe(el));
+
+    // ── Sticky Nav ──
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', scrollY > 60);
+    });
+
+    // ── Counter ──
+    const cObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target, target = +el.dataset.target, span = el.querySelector('span');
+        let cur = 0;
+        const step = Math.max(1, Math.floor(target / 30));
+        const t = setInterval(() => { cur = Math.min(cur + step, target); span.textContent = cur; if (cur >= target) clearInterval(t); }, 40);
+        cObs.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-target]').forEach(el => cObs.observe(el));
+
+    // ── Copy Hex ──
+    function copyHex(hex, card) {
+      navigator.clipboard.writeText(hex).then(() => {
+        const toast = document.getElementById('toast');
+        const lang  = document.documentElement.lang;
+        toast.textContent = lang === 'ar' ? `تم نسخ ${hex}` : `Copied ${hex}`;
+        toast.classList.add('show');
+        card.style.outline = `3px solid ${hex}`;
+        setTimeout(() => { toast.classList.remove('show'); card.style.outline = ''; }, 1800);
+      });
+    }
+
+    // ── Custom Cursor ──
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function animate() {
+      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+      dot.style.left  = mx - 4 + 'px'; dot.style.top  = my - 4 + 'px';
+      ring.style.left = rx - 16 + 'px'; ring.style.top = ry - 16 + 'px';
+      requestAnimationFrame(animate);
+    })();
+    document.querySelectorAll('a, button, .color-card, .demo-card').forEach(el => {
+      el.addEventListener('mouseenter', () => { ring.style.width = ring.style.height = '50px'; ring.style.borderColor = 'rgba(240,125,26,0.8)'; });
+      el.addEventListener('mouseleave', () => { ring.style.width = ring.style.height = '32px'; ring.style.borderColor = 'rgba(240,125,26,0.5)'; });
+    });
+  </script>
 </body>
 </html>
