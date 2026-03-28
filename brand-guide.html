@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diqat Alemaar — Brand Style Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="brand-colors.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-en);
+      background: var(--color-bg);
+      color: var(--color-dark);
+      padding: var(--space-8);
+    }
+
+    /* ── Page Title ── */
+    .guide-header {
+      text-align: center;
+      margin-bottom: var(--space-12);
+    }
+    .guide-header h1 {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-black);
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .guide-header p {
+      color: var(--color-accent);
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      margin-top: var(--space-2);
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: var(--space-12);
+    }
+    .section-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      border-left: 5px solid var(--color-accent);
+      padding-left: var(--space-3);
+      margin-bottom: var(--space-6);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ── Color Swatches ── */
+    .swatches {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+    .swatch {
+      width: 140px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .swatch-color {
+      height: 80px;
+    }
+    .swatch-info {
+      background: var(--color-white);
+      padding: var(--space-2) var(--space-3);
+    }
+    .swatch-name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-gray-800);
+    }
+    .swatch-hex {
+      font-size: var(--font-size-xs);
+      color: var(--color-gray-400);
+      font-family: monospace;
+    }
+    .swatch-var {
+      font-size: 10px;
+      color: var(--color-accent);
+      font-family: monospace;
+      margin-top: 2px;
+    }
+
+    /* ── Letterhead Divider ── */
+    .letterhead-divider {
+      display: flex;
+      flex-direction: column;
+      gap: var(--divider-accent-gap);
+      margin: var(--space-4) 0;
+    }
+    .letterhead-divider .line-thick {
+      height: 5px;
+      background: var(--color-primary);
+    }
+    .letterhead-divider .line-thin {
+      height: 2px;
+      background: var(--color-primary);
+      opacity: 0.5;
+    }
+
+    /* ── Geometric Shapes ── */
+    .shapes-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+    }
+    .shape-triangle {
+      width: 0;
+      height: 0;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-bottom: 86px solid var(--color-primary);
+    }
+    .shape-diamond {
+      width: 50px;
+      height: 50px;
+      background: var(--color-dark);
+      transform: rotate(45deg);
+    }
+    .shape-label {
+      font-size: var(--font-size-sm);
+      color: var(--color-gray-600);
+      margin-top: var(--space-2);
+      text-align: center;
+    }
+    .shape-wrap { text-align: center; }
+
+    /* ── Typography Samples ── */
+    .type-sample {
+      margin-bottom: var(--space-6);
+      padding: var(--space-4);
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+    .type-sample .label {
+      font-size: var(--font-size-xs);
+      color: var(--color-gray-400);
+      font-family: monospace;
+      margin-bottom: var(--space-2);
+    }
+
+    /* ── Component: Header Bar ── */
+    .demo-header {
+      background: var(--color-primary);
+      color: var(--color-white);
+      padding: var(--space-4) var(--space-8);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .demo-header .en-name {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-black);
+      letter-spacing: 1px;
+    }
+    .demo-header .en-sub {
+      font-size: var(--font-size-xs);
+      color: var(--color-accent);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .demo-header .ar-name {
+      font-family: var(--font-ar);
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-black);
+      direction: rtl;
+    }
+    .demo-header .ar-sub {
+      font-family: var(--font-ar);
+      font-size: var(--font-size-xs);
+      color: var(--color-accent);
+      font-weight: var(--font-weight-bold);
+      direction: rtl;
+    }
+    .demo-divider-wrap {
+      background: var(--color-white);
+      padding: 0;
+    }
+    .demo-footer {
+      background: var(--color-white);
+      border: 2px solid var(--color-primary);
+      border-top: none;
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      padding: var(--space-3) var(--space-8);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: var(--font-size-sm);
+      color: var(--color-primary);
+    }
+
+    /* ── Buttons ── */
+    .buttons-row { display: flex; gap: var(--space-4); flex-wrap: wrap; }
+    .btn {
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-sm);
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-sm);
+      cursor: pointer;
+      border: none;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .btn-primary   { background: var(--color-primary); color: var(--color-white); }
+    .btn-accent    { background: var(--color-accent);  color: var(--color-white); }
+    .btn-outline   { background: transparent; color: var(--color-primary); border: 2px solid var(--color-primary); }
+    .btn-outline-accent { background: transparent; color: var(--color-accent); border: 2px solid var(--color-accent); }
+
+    /* ── Card ── */
+    .demo-card {
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      max-width: 340px;
+    }
+    .demo-card-header {
+      background: var(--color-primary);
+      color: var(--color-white);
+      padding: var(--space-4) var(--space-6);
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-lg);
+    }
+    .demo-card-body {
+      padding: var(--space-6);
+      border-left: 4px solid var(--color-accent);
+    }
+    .demo-card-body p { color: var(--color-gray-600); font-size: var(--font-size-sm); line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+  <div class="guide-header">
+    <h1>Diqat Alemaar Co.</h1>
+    <p>Brand Style Guide & Design Reference</p>
+  </div>
+
+  <!-- ── 1. Colors ── -->
+  <div class="section">
+    <div class="section-title">1. Brand Colors</div>
+    <div class="swatches">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#1B3074;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Navy Blue</div>
+          <div class="swatch-hex">#1B3074</div>
+          <div class="swatch-var">--color-primary</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#F07D1A;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Orange</div>
+          <div class="swatch-hex">#F07D1A</div>
+          <div class="swatch-var">--color-accent</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#1A1A1A;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Near Black</div>
+          <div class="swatch-hex">#1A1A1A</div>
+          <div class="swatch-var">--color-dark</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#F7F7F5; border:1px solid #e4e4e4;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Off-White</div>
+          <div class="swatch-hex">#F7F7F5</div>
+          <div class="swatch-var">--color-bg</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#122158;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Navy Dark</div>
+          <div class="swatch-hex">#122158</div>
+          <div class="swatch-var">--color-primary-dark</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#F9A04A;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Orange Light</div>
+          <div class="swatch-hex">#F9A04A</div>
+          <div class="swatch-var">--color-accent-light</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2. Geometric Shapes ── -->
+  <div class="section">
+    <div class="section-title">2. Brand Shapes (from Letterhead)</div>
+    <div class="shapes-row">
+      <div class="shape-wrap">
+        <div class="shape-triangle"></div>
+        <div class="shape-label">Blue Triangle<br><small>--color-primary</small></div>
+      </div>
+      <div class="shape-wrap">
+        <div style="margin:18px auto; width:fit-content;">
+          <div class="shape-diamond"></div>
+        </div>
+        <div class="shape-label">Black Diamond<br><small>--color-dark</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3. Letterhead Divider ── -->
+  <div class="section">
+    <div class="section-title">3. Decorative Divider (Letterhead Lines)</div>
+    <div class="letterhead-divider">
+      <div class="line-thick"></div>
+      <div class="line-thin"></div>
+    </div>
+    <small style="color:var(--color-gray-400); font-family:monospace;">
+      Double horizontal line — thick (#1B3074) + thin (opacity 0.5)
+    </small>
+  </div>
+
+  <!-- ── 4. Typography ── -->
+  <div class="section">
+    <div class="section-title">4. Typography</div>
+
+    <div class="type-sample">
+      <div class="label">Company Name — EN / font-weight: 900 / --color-primary</div>
+      <div style="font-size:var(--font-size-3xl); font-weight:900; color:var(--color-primary); letter-spacing:2px; text-transform:uppercase;">
+        DIQAT ALEMAAR CO.
+      </div>
+    </div>
+
+    <div class="type-sample">
+      <div class="label">Tagline — EN / font-weight: 700 / --color-accent / uppercase</div>
+      <div style="font-size:var(--font-size-base); font-weight:700; color:var(--color-accent); letter-spacing:1px; text-transform:uppercase;">
+        CONTRACTING &amp; OIL SERVICES AND GENERAL TRADING
+      </div>
+    </div>
+
+    <div class="type-sample">
+      <div class="label">Company Name — AR / font-family: Tajawal / font-weight: 900 / --color-primary</div>
+      <div style="font-family:'Tajawal',sans-serif; font-size:var(--font-size-3xl); font-weight:900; color:var(--color-primary); direction:rtl; text-align:right;">
+        شركة دقة الإعمار
+      </div>
+    </div>
+
+    <div class="type-sample">
+      <div class="label">Tagline — AR / font-family: Tajawal / font-weight: 700 / --color-accent</div>
+      <div style="font-family:'Tajawal',sans-serif; font-size:var(--font-size-base); font-weight:700; color:var(--color-accent); direction:rtl; text-align:right;">
+        للمقاولات والخدمات النفطية والتجارة العامة
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 5. Component Demos ── -->
+  <div class="section">
+    <div class="section-title">5. Letterhead Header Component</div>
+    <div>
+      <div class="demo-header">
+        <div>
+          <div class="en-name">DIQAT ALEMAAR CO.</div>
+          <div class="en-sub">Contracting &amp; Oil Services and General Trading</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="ar-name">شركة دقة الإعمار</div>
+          <div class="ar-sub">للمقاولات والخدمات النفطية والتجارة العامة</div>
+        </div>
+      </div>
+      <div class="demo-divider-wrap">
+        <div class="letterhead-divider" style="margin:0;">
+          <div class="line-thick"></div>
+          <div class="line-thin"></div>
+        </div>
+      </div>
+      <div class="demo-footer">
+        <span>📞 07833033777 — 07845000007</span>
+        <span>✉ d.alemaar@yahoo.com</span>
+        <span>📍 البصرة - كوت الحجاج</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 6. Buttons ── -->
+  <div class="section">
+    <div class="section-title">6. Buttons</div>
+    <div class="buttons-row">
+      <button class="btn btn-primary">Primary Action</button>
+      <button class="btn btn-accent">Accent Action</button>
+      <button class="btn btn-outline">Outline Primary</button>
+      <button class="btn btn-outline-accent">Outline Accent</button>
+    </div>
+  </div>
+
+  <!-- ── 7. Card ── -->
+  <div class="section">
+    <div class="section-title">7. Card Component</div>
+    <div class="demo-card">
+      <div class="demo-card-header">Project / Service Title</div>
+      <div class="demo-card-body">
+        <p>Card body text describing a project, contract, or service entry. Uses the accent left border to maintain brand consistency.</p>
+        <br>
+        <button class="btn btn-primary" style="font-size:12px; padding:8px 16px;">View Details</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
