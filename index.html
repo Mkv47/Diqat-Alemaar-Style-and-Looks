@@ -1,417 +1,550 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Diqat Alemaar — Brand Style Guide</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="brand-colors.css" />
+  <title>Diqat Alemaar — Brand Identity</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --navy:        #1B3074;
+      --navy-dark:   #122158;
+      --navy-light:  #2A4499;
+      --orange:      #F07D1A;
+      --orange-light:#F9A04A;
+      --dark:        #1A1A1A;
+      --bg:          #F7F7F5;
+      --white:       #FFFFFF;
+      --gray:        #6B7280;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: var(--font-en);
-      background: var(--color-bg);
-      color: var(--color-dark);
-      padding: var(--space-8);
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
     }
 
-    /* ── Page Title ── */
-    .guide-header {
-      text-align: center;
-      margin-bottom: var(--space-12);
-    }
-    .guide-header h1 {
-      font-size: var(--font-size-3xl);
-      font-weight: var(--font-weight-black);
-      color: var(--color-primary);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-    .guide-header p {
-      color: var(--color-accent);
-      font-size: var(--font-size-lg);
-      font-weight: var(--font-weight-bold);
-      margin-top: var(--space-2);
-    }
-
-    /* ── Section ── */
-    .section {
-      margin-bottom: var(--space-12);
-    }
-    .section-title {
-      font-size: var(--font-size-xl);
-      font-weight: var(--font-weight-bold);
-      color: var(--color-primary);
-      border-left: 5px solid var(--color-accent);
-      padding-left: var(--space-3);
-      margin-bottom: var(--space-6);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    /* ── Color Swatches ── */
-    .swatches {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-4);
-    }
-    .swatch {
-      width: 140px;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-    }
-    .swatch-color {
-      height: 80px;
-    }
-    .swatch-info {
-      background: var(--color-white);
-      padding: var(--space-2) var(--space-3);
-    }
-    .swatch-name {
-      font-size: var(--font-size-sm);
-      font-weight: var(--font-weight-bold);
-      color: var(--color-gray-800);
-    }
-    .swatch-hex {
-      font-size: var(--font-size-xs);
-      color: var(--color-gray-400);
-      font-family: monospace;
-    }
-    .swatch-var {
-      font-size: 10px;
-      color: var(--color-accent);
-      font-family: monospace;
-      margin-top: 2px;
-    }
-
-    /* ── Letterhead Divider ── */
-    .letterhead-divider {
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy);
+      color: var(--white);
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      gap: var(--divider-accent-gap);
-      margin: var(--space-4) 0;
-    }
-    .letterhead-divider .line-thick {
-      height: 5px;
-      background: var(--color-primary);
-    }
-    .letterhead-divider .line-thin {
-      height: 2px;
-      background: var(--color-primary);
-      opacity: 0.5;
-    }
-
-    /* ── Geometric Shapes ── */
-    .shapes-row {
-      display: flex;
+      justify-content: center;
       align-items: center;
-      gap: var(--space-8);
-    }
-    .shape-triangle {
-      width: 0;
-      height: 0;
-      border-left: 50px solid transparent;
-      border-right: 50px solid transparent;
-      border-bottom: 86px solid var(--color-primary);
-    }
-    .shape-diamond {
-      width: 50px;
-      height: 50px;
-      background: var(--color-dark);
-      transform: rotate(45deg);
-    }
-    .shape-label {
-      font-size: var(--font-size-sm);
-      color: var(--color-gray-600);
-      margin-top: var(--space-2);
       text-align: center;
-    }
-    .shape-wrap { text-align: center; }
-
-    /* ── Typography Samples ── */
-    .type-sample {
-      margin-bottom: var(--space-6);
-      padding: var(--space-4);
-      background: var(--color-white);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-sm);
-    }
-    .type-sample .label {
-      font-size: var(--font-size-xs);
-      color: var(--color-gray-400);
-      font-family: monospace;
-      margin-bottom: var(--space-2);
+      padding: 60px 24px;
+      position: relative;
+      overflow: hidden;
     }
 
-    /* ── Component: Header Bar ── */
-    .demo-header {
-      background: var(--color-primary);
-      color: var(--color-white);
-      padding: var(--space-4) var(--space-8);
-      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -60px;
+      width: 300px; height: 300px;
+      background: var(--navy-light);
+      clip-path: polygon(0 100%, 100% 100%, 50% 0);
+      opacity: 0.3;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 160px; height: 160px;
+      background: var(--orange);
+      transform: rotate(45deg);
+      opacity: 0.15;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .hero h1 span { color: var(--orange); }
+
+    .hero-ar {
+      font-family: 'Tajawal', sans-serif;
+      font-size: clamp(1.4rem, 4vw, 2.5rem);
+      font-weight: 900;
+      color: var(--orange-light);
+      margin-top: 12px;
+      direction: rtl;
+    }
+
+    .hero-sub {
+      margin-top: 16px;
+      font-size: clamp(11px, 2vw, 14px);
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .divider {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      gap: 3px;
+      margin: 36px auto;
+      width: min(600px, 80%);
     }
-    .demo-header .en-name {
-      font-size: var(--font-size-xl);
-      font-weight: var(--font-weight-black);
-      letter-spacing: 1px;
+    .divider .thick { height: 4px; background: var(--white); opacity: 0.9; }
+    .divider .thin  { height: 2px; background: var(--white); opacity: 0.35; }
+
+    .hero-info {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-size: 13px;
+      color: rgba(255,255,255,0.75);
     }
-    .demo-header .en-sub {
-      font-size: var(--font-size-xs);
-      color: var(--color-accent);
-      font-weight: var(--font-weight-bold);
+    .hero-info span { display: flex; align-items: center; gap: 8px; }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section {
+      padding: 80px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 900;
+      color: var(--navy);
+      margin-bottom: 48px;
+      position: relative;
+      padding-bottom: 16px;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 60px; height: 4px;
+      background: var(--orange);
+      border-radius: 2px;
+    }
+
+    /* ── COLORS ── */
+    .colors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 20px;
+    }
+
+    .color-card {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(27,48,116,0.12);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .color-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(27,48,116,0.2);
+    }
+
+    .color-swatch {
+      height: 100px;
+      position: relative;
+    }
+    .color-swatch .role {
+      position: absolute;
+      bottom: 8px; left: 10px;
+      font-size: 10px;
+      font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
     }
-    .demo-header .ar-name {
-      font-family: var(--font-ar);
-      font-size: var(--font-size-2xl);
-      font-weight: var(--font-weight-black);
-      direction: rtl;
+    .color-info {
+      background: var(--white);
+      padding: 12px 14px;
     }
-    .demo-header .ar-sub {
-      font-family: var(--font-ar);
-      font-size: var(--font-size-xs);
-      color: var(--color-accent);
-      font-weight: var(--font-weight-bold);
-      direction: rtl;
-    }
-    .demo-divider-wrap {
-      background: var(--color-white);
-      padding: 0;
-    }
-    .demo-footer {
-      background: var(--color-white);
-      border: 2px solid var(--color-primary);
-      border-top: none;
-      border-radius: 0 0 var(--radius-md) var(--radius-md);
-      padding: var(--space-3) var(--space-8);
+    .color-name { font-size: 13px; font-weight: 700; color: var(--dark); }
+    .color-hex  { font-size: 11px; color: var(--gray); font-family: monospace; margin-top: 2px; }
+
+    /* ── SHAPES ── */
+    .shapes-section { background: var(--navy); padding: 80px 24px; }
+    .shapes-inner   { max-width: 1100px; margin: 0 auto; }
+    .shapes-section .section-label { color: var(--orange-light); }
+    .shapes-section .section-title { color: var(--white); }
+    .shapes-section .section-title::after { background: var(--orange); }
+
+    .shapes-grid {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: var(--font-size-sm);
-      color: var(--color-primary);
+      gap: 60px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+    .shape-item { text-align: center; }
+    .shape-item .caption {
+      margin-top: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
     }
 
-    /* ── Buttons ── */
-    .buttons-row { display: flex; gap: var(--space-4); flex-wrap: wrap; }
+    .tri {
+      width: 0; height: 0;
+      border-left:  60px solid transparent;
+      border-right: 60px solid transparent;
+      border-bottom: 104px solid var(--white);
+      opacity: 0.9;
+    }
+    .tri-orange {
+      border-bottom-color: var(--orange);
+      width: 0; height: 0;
+      border-left:  30px solid transparent;
+      border-right: 30px solid transparent;
+      border-bottom: 52px solid var(--orange);
+      margin: 0 auto 8px;
+    }
+    .diamond {
+      width: 70px; height: 70px;
+      background: var(--dark);
+      transform: rotate(45deg);
+      margin: 0 auto;
+    }
+    .divider-demo {
+      flex: 1;
+      min-width: 200px;
+    }
+    .divider-demo .label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 16px;
+    }
+    .d-thick { height: 5px; background: var(--white); border-radius: 2px; }
+    .d-gap   { height: 3px; }
+    .d-thin  { height: 2px; background: var(--white); opacity: 0.4; border-radius: 2px; }
+
+    /* ── TYPOGRAPHY ── */
+    .type-grid { display: flex; flex-direction: column; gap: 20px; }
+    .type-row {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 24px 28px;
+      box-shadow: 0 2px 10px rgba(27,48,116,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .type-meta { font-size: 11px; color: var(--gray); font-family: monospace; min-width: 180px; }
+    .type-meta div { margin-bottom: 3px; }
+
+    /* ── BUTTONS ── */
+    .btn-grid { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
     .btn {
-      padding: var(--space-3) var(--space-6);
-      border-radius: var(--radius-sm);
-      font-weight: var(--font-weight-bold);
-      font-size: var(--font-size-sm);
+      padding: 13px 28px;
+      border-radius: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
       cursor: pointer;
       border: none;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
+      transition: all 0.2s;
     }
-    .btn-primary   { background: var(--color-primary); color: var(--color-white); }
-    .btn-accent    { background: var(--color-accent);  color: var(--color-white); }
-    .btn-outline   { background: transparent; color: var(--color-primary); border: 2px solid var(--color-primary); }
-    .btn-outline-accent { background: transparent; color: var(--color-accent); border: 2px solid var(--color-accent); }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--navy); color: var(--white); }
+    .btn-primary:hover { background: var(--navy-dark); box-shadow: 0 6px 20px rgba(27,48,116,0.3); }
+    .btn-accent  { background: var(--orange); color: var(--white); }
+    .btn-accent:hover { background: #d96c0e; box-shadow: 0 6px 20px rgba(240,125,26,0.35); }
+    .btn-outline { background: transparent; color: var(--navy); border: 2px solid var(--navy); }
+    .btn-outline:hover { background: var(--navy); color: var(--white); }
+    .btn-outline-accent { background: transparent; color: var(--orange); border: 2px solid var(--orange); }
+    .btn-outline-accent:hover { background: var(--orange); color: var(--white); }
 
-    /* ── Card ── */
+    /* ── CARD DEMO ── */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
     .demo-card {
-      background: var(--color-white);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-md);
+      background: var(--white);
+      border-radius: 12px;
       overflow: hidden;
-      max-width: 340px;
+      box-shadow: 0 4px 16px rgba(27,48,116,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .demo-card-header {
-      background: var(--color-primary);
-      color: var(--color-white);
-      padding: var(--space-4) var(--space-6);
-      font-weight: var(--font-weight-bold);
-      font-size: var(--font-size-lg);
+    .demo-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(27,48,116,0.18); }
+    .demo-card-top { background: var(--navy); padding: 20px 24px; color: var(--white); }
+    .demo-card-top .tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--orange-light);
+      margin-bottom: 8px;
     }
-    .demo-card-body {
-      padding: var(--space-6);
-      border-left: 4px solid var(--color-accent);
+    .demo-card-top h3 { font-size: 17px; font-weight: 700; }
+    .demo-card-body { padding: 20px 24px; border-left: 4px solid var(--orange); }
+    .demo-card-body p { font-size: 13px; color: var(--gray); line-height: 1.7; }
+    .demo-card-body .btn { margin-top: 16px; font-size: 11px; padding: 9px 18px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy-dark);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 12px;
+      letter-spacing: 1px;
     }
-    .demo-card-body p { color: var(--color-gray-600); font-size: var(--font-size-sm); line-height: 1.6; }
+    footer strong { color: var(--orange); }
+
+    /* ── SECTION DIVIDER ── */
+    .full-divider {
+      display: flex; flex-direction: column; gap: 3px;
+      background: var(--bg);
+      padding: 0;
+    }
+    .full-divider .t { height: 4px; background: var(--navy); }
+    .full-divider .n { height: 2px; background: var(--navy); opacity: 0.3; }
   </style>
 </head>
 <body>
 
-  <div class="guide-header">
-    <h1>Diqat Alemaar Co.</h1>
-    <p>Brand Style Guide & Design Reference</p>
-  </div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Brand Identity 2024</div>
+    <h1>Diqat <span>Al</span>emaar</h1>
+    <div class="hero-ar">شركة دقة الإعمار</div>
+    <div class="hero-sub">Contracting &amp; Oil Services — General Trading</div>
+    <div class="divider">
+      <div class="thick"></div>
+      <div class="thin"></div>
+    </div>
+    <div class="hero-info">
+      <span>📞 07833033777</span>
+      <span>✉ d.alemaar@yahoo.com</span>
+      <span>📍 البصرة - كوت الحجاج</span>
+    </div>
+    <div class="scroll-hint">▼ scroll to explore</div>
+  </section>
 
-  <!-- ── 1. Colors ── -->
-  <div class="section">
-    <div class="section-title">1. Brand Colors</div>
-    <div class="swatches">
-      <div class="swatch">
-        <div class="swatch-color" style="background:#1B3074;"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Navy Blue</div>
-          <div class="swatch-hex">#1B3074</div>
-          <div class="swatch-var">--color-primary</div>
-        </div>
+  <!-- COLORS -->
+  <section class="section">
+    <div class="section-label">01 — Palette</div>
+    <div class="section-title">Brand Colors</div>
+    <div class="colors-grid">
+      <div class="color-card">
+        <div class="color-swatch" style="background:#1B3074;"><span class="role">Primary</span></div>
+        <div class="color-info"><div class="color-name">Navy Blue</div><div class="color-hex">#1B3074</div></div>
       </div>
-      <div class="swatch">
-        <div class="swatch-color" style="background:#F07D1A;"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Orange</div>
-          <div class="swatch-hex">#F07D1A</div>
-          <div class="swatch-var">--color-accent</div>
-        </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#F07D1A;"><span class="role">Accent</span></div>
+        <div class="color-info"><div class="color-name">Orange</div><div class="color-hex">#F07D1A</div></div>
       </div>
-      <div class="swatch">
-        <div class="swatch-color" style="background:#1A1A1A;"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Near Black</div>
-          <div class="swatch-hex">#1A1A1A</div>
-          <div class="swatch-var">--color-dark</div>
-        </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#122158;"><span class="role">Dark</span></div>
+        <div class="color-info"><div class="color-name">Navy Dark</div><div class="color-hex">#122158</div></div>
       </div>
-      <div class="swatch">
-        <div class="swatch-color" style="background:#F7F7F5; border:1px solid #e4e4e4;"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Off-White</div>
-          <div class="swatch-hex">#F7F7F5</div>
-          <div class="swatch-var">--color-bg</div>
-        </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#2A4499;"><span class="role">Light</span></div>
+        <div class="color-info"><div class="color-name">Navy Light</div><div class="color-hex">#2A4499</div></div>
       </div>
-      <div class="swatch">
-        <div class="swatch-color" style="background:#122158;"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Navy Dark</div>
-          <div class="swatch-hex">#122158</div>
-          <div class="swatch-var">--color-primary-dark</div>
-        </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#F9A04A;"><span class="role">Light</span></div>
+        <div class="color-info"><div class="color-name">Orange Light</div><div class="color-hex">#F9A04A</div></div>
       </div>
-      <div class="swatch">
-        <div class="swatch-color" style="background:#F9A04A;"></div>
-        <div class="swatch-info">
-          <div class="swatch-name">Orange Light</div>
-          <div class="swatch-hex">#F9A04A</div>
-          <div class="swatch-var">--color-accent-light</div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#1A1A1A;"><span class="role">Base</span></div>
+        <div class="color-info"><div class="color-name">Near Black</div><div class="color-hex">#1A1A1A</div></div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#F7F7F5; outline:1px solid #e4e4e4;"><span class="role" style="color:#999;">Background</span></div>
+        <div class="color-info"><div class="color-name">Off White</div><div class="color-hex">#F7F7F5</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="full-divider"><div class="t"></div><div class="n"></div></div>
+
+  <!-- SHAPES -->
+  <section class="shapes-section">
+    <div class="shapes-inner">
+      <div class="section-label">02 — Identity</div>
+      <div class="section-title">Brand Shapes & Divider</div>
+      <div class="shapes-grid">
+        <div class="shape-item">
+          <div class="tri"></div>
+          <div class="caption">Blue Triangle</div>
+        </div>
+        <div class="shape-item">
+          <div class="diamond"></div>
+          <div class="caption">Black Diamond</div>
+        </div>
+        <div class="divider-demo">
+          <div class="label">Letterhead Divider</div>
+          <div class="d-thick"></div>
+          <div class="d-gap"></div>
+          <div class="d-thin"></div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- ── 2. Geometric Shapes ── -->
-  <div class="section">
-    <div class="section-title">2. Brand Shapes (from Letterhead)</div>
-    <div class="shapes-row">
-      <div class="shape-wrap">
-        <div class="shape-triangle"></div>
-        <div class="shape-label">Blue Triangle<br><small>--color-primary</small></div>
-      </div>
-      <div class="shape-wrap">
-        <div style="margin:18px auto; width:fit-content;">
-          <div class="shape-diamond"></div>
+  <div class="full-divider"><div class="t"></div><div class="n"></div></div>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section">
+    <div class="section-label">03 — Typography</div>
+    <div class="section-title">Typefaces</div>
+    <div class="type-grid">
+      <div class="type-row">
+        <div style="font-family:'Montserrat',sans-serif; font-size:2.2rem; font-weight:900; color:var(--navy); text-transform:uppercase; letter-spacing:2px;">
+          DIQAT ALEMAAR CO.
         </div>
-        <div class="shape-label">Black Diamond<br><small>--color-dark</small></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── 3. Letterhead Divider ── -->
-  <div class="section">
-    <div class="section-title">3. Decorative Divider (Letterhead Lines)</div>
-    <div class="letterhead-divider">
-      <div class="line-thick"></div>
-      <div class="line-thin"></div>
-    </div>
-    <small style="color:var(--color-gray-400); font-family:monospace;">
-      Double horizontal line — thick (#1B3074) + thin (opacity 0.5)
-    </small>
-  </div>
-
-  <!-- ── 4. Typography ── -->
-  <div class="section">
-    <div class="section-title">4. Typography</div>
-
-    <div class="type-sample">
-      <div class="label">Company Name — EN / font-weight: 900 / --color-primary</div>
-      <div style="font-size:var(--font-size-3xl); font-weight:900; color:var(--color-primary); letter-spacing:2px; text-transform:uppercase;">
-        DIQAT ALEMAAR CO.
-      </div>
-    </div>
-
-    <div class="type-sample">
-      <div class="label">Tagline — EN / font-weight: 700 / --color-accent / uppercase</div>
-      <div style="font-size:var(--font-size-base); font-weight:700; color:var(--color-accent); letter-spacing:1px; text-transform:uppercase;">
-        CONTRACTING &amp; OIL SERVICES AND GENERAL TRADING
-      </div>
-    </div>
-
-    <div class="type-sample">
-      <div class="label">Company Name — AR / font-family: Tajawal / font-weight: 900 / --color-primary</div>
-      <div style="font-family:'Tajawal',sans-serif; font-size:var(--font-size-3xl); font-weight:900; color:var(--color-primary); direction:rtl; text-align:right;">
-        شركة دقة الإعمار
-      </div>
-    </div>
-
-    <div class="type-sample">
-      <div class="label">Tagline — AR / font-family: Tajawal / font-weight: 700 / --color-accent</div>
-      <div style="font-family:'Tajawal',sans-serif; font-size:var(--font-size-base); font-weight:700; color:var(--color-accent); direction:rtl; text-align:right;">
-        للمقاولات والخدمات النفطية والتجارة العامة
-      </div>
-    </div>
-  </div>
-
-  <!-- ── 5. Component Demos ── -->
-  <div class="section">
-    <div class="section-title">5. Letterhead Header Component</div>
-    <div>
-      <div class="demo-header">
-        <div>
-          <div class="en-name">DIQAT ALEMAAR CO.</div>
-          <div class="en-sub">Contracting &amp; Oil Services and General Trading</div>
-        </div>
-        <div style="text-align:right;">
-          <div class="ar-name">شركة دقة الإعمار</div>
-          <div class="ar-sub">للمقاولات والخدمات النفطية والتجارة العامة</div>
+        <div class="type-meta">
+          <div>Font: Montserrat</div>
+          <div>Weight: 900 (Black)</div>
+          <div>Use: Company name EN</div>
         </div>
       </div>
-      <div class="demo-divider-wrap">
-        <div class="letterhead-divider" style="margin:0;">
-          <div class="line-thick"></div>
-          <div class="line-thin"></div>
+      <div class="type-row">
+        <div style="font-family:'Montserrat',sans-serif; font-size:0.85rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:2px;">
+          CONTRACTING &amp; OIL SERVICES AND GENERAL TRADING
+        </div>
+        <div class="type-meta">
+          <div>Font: Montserrat</div>
+          <div>Weight: 700 / Orange</div>
+          <div>Use: Tagline EN</div>
         </div>
       </div>
-      <div class="demo-footer">
-        <span>📞 07833033777 — 07845000007</span>
-        <span>✉ d.alemaar@yahoo.com</span>
-        <span>📍 البصرة - كوت الحجاج</span>
+      <div class="type-row">
+        <div style="font-family:'Tajawal',sans-serif; font-size:2.2rem; font-weight:900; color:var(--navy); direction:rtl;">
+          شركة دقة الإعمار
+        </div>
+        <div class="type-meta">
+          <div>Font: Tajawal</div>
+          <div>Weight: 900 (Black)</div>
+          <div>Use: Company name AR</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div style="font-family:'Tajawal',sans-serif; font-size:1rem; font-weight:700; color:var(--orange); direction:rtl;">
+          للمقاولات والخدمات النفطية والتجارة العامة
+        </div>
+        <div class="type-meta">
+          <div>Font: Tajawal</div>
+          <div>Weight: 700 / Orange</div>
+          <div>Use: Tagline AR</div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- ── 6. Buttons ── -->
-  <div class="section">
-    <div class="section-title">6. Buttons</div>
-    <div class="buttons-row">
-      <button class="btn btn-primary">Primary Action</button>
-      <button class="btn btn-accent">Accent Action</button>
-      <button class="btn btn-outline">Outline Primary</button>
-      <button class="btn btn-outline-accent">Outline Accent</button>
+  <div class="full-divider"><div class="t"></div><div class="n"></div></div>
+
+  <!-- BUTTONS -->
+  <section class="section">
+    <div class="section-label">04 — UI Elements</div>
+    <div class="section-title">Buttons</div>
+    <div class="btn-grid">
+      <button class="btn btn-primary">Primary</button>
+      <button class="btn btn-accent">Accent</button>
+      <button class="btn btn-outline">Outline Navy</button>
+      <button class="btn btn-outline-accent">Outline Orange</button>
     </div>
-  </div>
+  </section>
 
-  <!-- ── 7. Card ── -->
-  <div class="section">
-    <div class="section-title">7. Card Component</div>
-    <div class="demo-card">
-      <div class="demo-card-header">Project / Service Title</div>
-      <div class="demo-card-body">
-        <p>Card body text describing a project, contract, or service entry. Uses the accent left border to maintain brand consistency.</p>
-        <br>
-        <button class="btn btn-primary" style="font-size:12px; padding:8px 16px;">View Details</button>
+  <div class="full-divider"><div class="t"></div><div class="n"></div></div>
+
+  <!-- CARDS -->
+  <section class="section">
+    <div class="section-label">05 — Components</div>
+    <div class="section-title">Cards</div>
+    <div class="cards-grid">
+      <div class="demo-card">
+        <div class="demo-card-top">
+          <div class="tag">Contracting</div>
+          <h3>Oil Field Services</h3>
+        </div>
+        <div class="demo-card-body">
+          <p>Providing specialized contracting and oil services across the region since 2007.</p>
+          <button class="btn btn-primary">Learn More</button>
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="demo-card-top">
+          <div class="tag">Trading</div>
+          <h3>General Trading</h3>
+        </div>
+        <div class="demo-card-body">
+          <p>Comprehensive general trading solutions tailored to client needs and market demands.</p>
+          <button class="btn btn-accent">Learn More</button>
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="demo-card-top">
+          <div class="tag">Projects</div>
+          <h3>Infrastructure</h3>
+        </div>
+        <div class="demo-card-body">
+          <p>End-to-end project management for infrastructure and industrial developments.</p>
+          <button class="btn btn-outline">Learn More</button>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <strong>DIQAT ALEMAAR CO.</strong> — Brand Identity Reference &nbsp;|&nbsp; Est. 2007 &nbsp;|&nbsp; البصرة، العراق
+  </footer>
 
 </body>
 </html>
