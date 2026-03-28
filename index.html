@@ -343,10 +343,117 @@
     .cursor-dot { width: 8px; height: 8px; background: var(--orange); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; mix-blend-mode: screen; }
     .cursor-ring { width: 32px; height: 32px; border: 2px solid rgba(240,125,26,0.5); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transition: width 0.2s, height 0.2s; }
 
+    /* ── GALLERY ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .gallery-card {
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 4px 16px rgba(27,48,116,0.12);
+      background: var(--white);
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s, opacity 0.4s;
+      cursor: pointer;
+    }
+    .gallery-card.hidden { opacity: 0; transform: scale(0.9); pointer-events: none; height: 0; overflow: hidden; margin: 0; padding: 0; }
+    .gallery-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 48px rgba(27,48,116,0.22); }
+    .gallery-img {
+      height: 200px; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gallery-icon { font-size: 3rem; z-index: 1; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3)); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: rgba(18,33,88,0.85);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s;
+      padding: 20px; text-align: center;
+    }
+    .gallery-card:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay-title { color: var(--white); font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .gallery-overlay-sub   { color: var(--orange-light); font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+    html[dir="rtl"] .gallery-overlay-sub { letter-spacing: 0; }
+    .gallery-info { padding: 16px 20px; display: flex; align-items: center; gap: 12px; }
+    .gallery-tag {
+      background: var(--navy); color: var(--white);
+      font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 12px; white-space: nowrap;
+    }
+    html[dir="rtl"] .gallery-tag { letter-spacing: 0; font-size: 11px; text-transform: none; }
+    .gallery-title { font-size: 13px; font-weight: 700; color: var(--dark); }
+
+    /* Filter buttons */
+    .filter-btn {
+      background: var(--white); border: 2px solid var(--navy);
+      color: var(--navy); border-radius: 24px;
+      padding: 8px 20px; font-family: inherit;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      cursor: pointer; transition: all 0.2s;
+    }
+    html[dir="rtl"] .filter-btn { letter-spacing: 0; font-size: 13px; text-transform: none; }
+    .filter-btn:hover  { background: var(--navy); color: var(--white); }
+    .filter-btn.active { background: var(--orange); border-color: var(--orange); color: var(--white); }
+
+    /* ── CERTIFICATES ── */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .cert-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px; padding: 28px 24px;
+      position: relative; overflow: hidden;
+      transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+    .cert-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: linear-gradient(90deg, var(--orange), var(--orange-light));
+    }
+    .cert-card:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+    }
+    .cert-ribbon {
+      position: absolute; top: 14px; right: -26px;
+      background: var(--orange); color: var(--white);
+      font-size: 9px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; padding: 3px 32px;
+      transform: rotate(45deg);
+    }
+    html[dir="rtl"] .cert-ribbon { right: auto; left: -26px; transform: rotate(-45deg); letter-spacing: 0; }
+    .cert-icon { font-size: 2.4rem; margin-bottom: 16px; display: block; }
+    .cert-name {
+      font-size: 15px; font-weight: 700; color: var(--white);
+      margin-bottom: 8px; line-height: 1.3;
+    }
+    .cert-num {
+      font-size: 10px; font-family: monospace; color: var(--orange-light);
+      margin-bottom: 10px; letter-spacing: 1px;
+    }
+    .cert-issuer { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+    .cert-date {
+      display: inline-block;
+      font-size: 10px; font-weight: 700;
+      color: var(--orange); letter-spacing: 1px;
+      border: 1px solid rgba(240,125,26,0.4);
+      padding: 3px 10px; border-radius: 12px;
+    }
+    html[dir="rtl"] .cert-date { letter-spacing: 0; }
+
     @media (max-width: 640px) {
       nav { padding: 14px 20px; }
       .nav-links a { display: none; }
       .shapes-grid { gap: 40px; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .cert-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -360,10 +467,12 @@
   <nav id="nav">
     <div class="nav-logo">Diqat <span>Al</span>emaar</div>
     <div class="nav-links">
-      <a href="#colors"     data-en="Colors"      data-ar="الألوان">Colors</a>
-      <a href="#shapes"     data-en="Shapes"      data-ar="الأشكال">Shapes</a>
-      <a href="#typography" data-en="Typography"  data-ar="الخطوط">Typography</a>
-      <a href="#components" data-en="Components"  data-ar="المكونات">Components</a>
+      <a href="#colors"       data-en="Colors"       data-ar="الألوان">Colors</a>
+      <a href="#shapes"       data-en="Shapes"       data-ar="الأشكال">Shapes</a>
+      <a href="#typography"   data-en="Typography"   data-ar="الخطوط">Typography</a>
+      <a href="#components"   data-en="Components"   data-ar="المكونات">Components</a>
+      <a href="#gallery"      data-en="Gallery"      data-ar="معرض الأعمال">Gallery</a>
+      <a href="#certificates" data-en="Certificates" data-ar="الشهادات">Certificates</a>
       <div class="lang-toggle">
         <button id="btnEN" class="active" onclick="setLang('en')">EN</button>
         <button id="btnAR" onclick="setLang('ar')">ع</button>
@@ -567,6 +676,171 @@
     </div>
   </section>
 
+  <div class="full-divider"><div class="t"></div><div class="n"></div></div>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="section">
+      <div class="section-label reveal" data-en="06 — Portfolio" data-ar="٠٦ — أعمالنا">06 — Portfolio</div>
+      <div class="section-title reveal" data-en="Work Gallery" data-ar="معرض الأعمال">Work Gallery</div>
+
+      <!-- Filter Tabs -->
+      <div class="gallery-filters reveal" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px;">
+        <button class="filter-btn active" data-filter="all"         data-en="All"          data-ar="الكل">All</button>
+        <button class="filter-btn"        data-filter="oil"         data-en="Oil &amp; Gas" data-ar="النفط والغاز">Oil &amp; Gas</button>
+        <button class="filter-btn"        data-filter="civil"       data-en="Civil Works"   data-ar="الأعمال المدنية">Civil Works</button>
+        <button class="filter-btn"        data-filter="industrial"  data-en="Industrial"    data-ar="الصناعي">Industrial</button>
+        <button class="filter-btn"        data-filter="trading"     data-en="Trading"       data-ar="التجارة">Trading</button>
+      </div>
+
+      <div class="gallery-grid" id="galleryGrid">
+
+        <div class="gallery-card reveal delay-1" data-cat="oil">
+          <div class="gallery-img" style="background:linear-gradient(135deg,#1B3074 0%,#2A4499 100%);">
+            <div class="gallery-icon">⚙️</div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-title" data-en="Pipeline Installation" data-ar="تركيب خطوط الأنابيب">Pipeline Installation</div>
+              <div class="gallery-overlay-sub" data-en="Basra, 2023" data-ar="البصرة، 2023">Basra, 2023</div>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-tag" data-en="Oil &amp; Gas" data-ar="النفط والغاز">Oil &amp; Gas</span>
+            <div class="gallery-title" data-en="Pipeline Installation Project" data-ar="مشروع تركيب خطوط الأنابيب">Pipeline Installation Project</div>
+          </div>
+        </div>
+
+        <div class="gallery-card reveal delay-2" data-cat="civil">
+          <div class="gallery-img" style="background:linear-gradient(135deg,#122158 0%,#1B3074 100%);">
+            <div class="gallery-icon">🏗️</div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-title" data-en="Commercial Building" data-ar="بناء تجاري">Commercial Building</div>
+              <div class="gallery-overlay-sub" data-en="Basra, 2022" data-ar="البصرة، 2022">Basra, 2022</div>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-tag" data-en="Civil Works" data-ar="الأعمال المدنية">Civil Works</span>
+            <div class="gallery-title" data-en="Commercial Complex Construction" data-ar="إنشاء مجمع تجاري">Commercial Complex Construction</div>
+          </div>
+        </div>
+
+        <div class="gallery-card reveal delay-3" data-cat="industrial">
+          <div class="gallery-img" style="background:linear-gradient(135deg,#F07D1A 0%,#122158 100%);">
+            <div class="gallery-icon">🔧</div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-title" data-en="Industrial Maintenance" data-ar="صيانة صناعية">Industrial Maintenance</div>
+              <div class="gallery-overlay-sub" data-en="Basra, 2023" data-ar="البصرة، 2023">Basra, 2023</div>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-tag" data-en="Industrial" data-ar="الصناعي">Industrial</span>
+            <div class="gallery-title" data-en="Refinery Maintenance Works" data-ar="أعمال صيانة المصفاة">Refinery Maintenance Works</div>
+          </div>
+        </div>
+
+        <div class="gallery-card reveal delay-4" data-cat="oil">
+          <div class="gallery-img" style="background:linear-gradient(135deg,#2A4499 0%,#F07D1A 100%);">
+            <div class="gallery-icon">🛢️</div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-title" data-en="Oil Field Support" data-ar="دعم حقول النفط">Oil Field Support</div>
+              <div class="gallery-overlay-sub" data-en="Basra, 2021" data-ar="البصرة، 2021">Basra, 2021</div>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-tag" data-en="Oil &amp; Gas" data-ar="النفط والغاز">Oil &amp; Gas</span>
+            <div class="gallery-title" data-en="Oil Field Support Services" data-ar="خدمات دعم حقول النفط">Oil Field Support Services</div>
+          </div>
+        </div>
+
+        <div class="gallery-card reveal delay-5" data-cat="civil">
+          <div class="gallery-img" style="background:linear-gradient(135deg,#1B3074 0%,#F9A04A 100%);">
+            <div class="gallery-icon">🏢</div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-title" data-en="Office Complex" data-ar="مجمع مكاتب">Office Complex</div>
+              <div class="gallery-overlay-sub" data-en="Basra, 2022" data-ar="البصرة، 2022">Basra, 2022</div>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-tag" data-en="Civil Works" data-ar="الأعمال المدنية">Civil Works</span>
+            <div class="gallery-title" data-en="Office Complex Development" data-ar="تطوير مجمع مكاتب">Office Complex Development</div>
+          </div>
+        </div>
+
+        <div class="gallery-card reveal delay-6" data-cat="trading">
+          <div class="gallery-img" style="background:linear-gradient(135deg,#122158 0%,#F07D1A 100%);">
+            <div class="gallery-icon">📦</div>
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-title" data-en="Supply Chain" data-ar="سلسلة التوريد">Supply Chain</div>
+              <div class="gallery-overlay-sub" data-en="Iraq, 2023" data-ar="العراق، 2023">Iraq, 2023</div>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-tag" data-en="Trading" data-ar="التجارة">Trading</span>
+            <div class="gallery-title" data-en="Industrial Equipment Supply" data-ar="توريد المعدات الصناعية">Industrial Equipment Supply</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="full-divider"><div class="t"></div><div class="n"></div></div>
+
+  <!-- CERTIFICATES -->
+  <section id="certificates" style="background:var(--navy); padding:90px 0;">
+    <div class="section">
+      <div class="section-label reveal" style="color:var(--orange-light);" data-en="07 — Credentials" data-ar="٠٧ — الشهادات والاعتمادات">07 — Credentials</div>
+      <div class="section-title reveal" style="color:var(--white);" data-en="Certificates &amp; Licenses" data-ar="الشهادات والتراخيص">Certificates &amp; Licenses</div>
+
+      <div class="cert-grid">
+
+        <div class="cert-card reveal delay-1">
+          <div class="cert-ribbon" data-en="Verified" data-ar="موثّق">Verified</div>
+          <div class="cert-icon">📋</div>
+          <div class="cert-body">
+            <div class="cert-name" data-en="Commercial Registration" data-ar="السجل التجاري">Commercial Registration</div>
+            <div class="cert-num"># PLACEHOLDER — 000000</div>
+            <div class="cert-issuer" data-en="Ministry of Trade — Iraq" data-ar="وزارة التجارة — العراق">Ministry of Trade — Iraq</div>
+            <div class="cert-date" data-en="Valid · 2007 – Present" data-ar="ساري · 2007 – حتى الآن">Valid · 2007 – Present</div>
+          </div>
+        </div>
+
+        <div class="cert-card reveal delay-2">
+          <div class="cert-ribbon" data-en="Verified" data-ar="موثّق">Verified</div>
+          <div class="cert-icon">🛢️</div>
+          <div class="cert-body">
+            <div class="cert-name" data-en="Oil Services License" data-ar="ترخيص الخدمات النفطية">Oil Services License</div>
+            <div class="cert-num"># PLACEHOLDER — 000000</div>
+            <div class="cert-issuer" data-en="Ministry of Oil — Iraq" data-ar="وزارة النفط — العراق">Ministry of Oil — Iraq</div>
+            <div class="cert-date" data-en="Valid · Annually Renewed" data-ar="ساري · يُجدَّد سنوياً">Valid · Annually Renewed</div>
+          </div>
+        </div>
+
+        <div class="cert-card reveal delay-3">
+          <div class="cert-ribbon" data-en="Verified" data-ar="موثّق">Verified</div>
+          <div class="cert-icon">🏗️</div>
+          <div class="cert-body">
+            <div class="cert-name" data-en="Contractor Classification" data-ar="تصنيف مقاولين">Contractor Classification</div>
+            <div class="cert-num"># PLACEHOLDER — 000000</div>
+            <div class="cert-issuer" data-en="Engineers Syndicate — Basra" data-ar="نقابة المهندسين — البصرة">Engineers Syndicate — Basra</div>
+            <div class="cert-date" data-en="Grade: PLACEHOLDER" data-ar="الدرجة: PLACEHOLDER">Grade: PLACEHOLDER</div>
+          </div>
+        </div>
+
+        <div class="cert-card reveal delay-4">
+          <div class="cert-ribbon" data-en="Verified" data-ar="موثّق">Verified</div>
+          <div class="cert-icon">⭐</div>
+          <div class="cert-body">
+            <div class="cert-name" data-en="ISO Certification" data-ar="شهادة الآيزو">ISO Certification</div>
+            <div class="cert-num"># PLACEHOLDER</div>
+            <div class="cert-issuer" data-en="PLACEHOLDER Issuing Body" data-ar="جهة الإصدار: PLACEHOLDER">PLACEHOLDER Issuing Body</div>
+            <div class="cert-date" data-en="Valid · PLACEHOLDER" data-ar="ساري · PLACEHOLDER">Valid · PLACEHOLDER</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-divider"><div class="t"></div><div class="n"></div></div>
@@ -646,7 +920,20 @@
       ring.style.left = rx - 16 + 'px'; ring.style.top = ry - 16 + 'px';
       requestAnimationFrame(animate);
     })();
-    document.querySelectorAll('a, button, .color-card, .demo-card').forEach(el => {
+    // ── Gallery Filter ──
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.gallery-card').forEach(card => {
+          const match = filter === 'all' || card.dataset.cat === filter;
+          card.classList.toggle('hidden', !match);
+        });
+      });
+    });
+
+    document.querySelectorAll('a, button, .color-card, .demo-card, .gallery-card, .cert-card').forEach(el => {
       el.addEventListener('mouseenter', () => { ring.style.width = ring.style.height = '50px'; ring.style.borderColor = 'rgba(240,125,26,0.8)'; });
       el.addEventListener('mouseleave', () => { ring.style.width = ring.style.height = '32px'; ring.style.borderColor = 'rgba(240,125,26,0.5)'; });
     });
