@@ -448,12 +448,54 @@
     }
     html[dir="rtl"] .cert-date { letter-spacing: 0; }
 
+    /* ── BLUE PICKER ── */
+    .blue-picker {
+      position: fixed;
+      bottom: 32px; right: 28px;
+      background: rgba(18,33,88,0.97);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 16px;
+      padding: 14px 16px;
+      z-index: 9990;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+      min-width: 180px;
+      transition: transform 0.3s;
+    }
+    html[dir="rtl"] .blue-picker { right: auto; left: 28px; }
+    .blue-picker-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(255,255,255,0.5);
+      margin-bottom: 10px; text-align: center;
+    }
+    .blue-options { display: flex; gap: 8px; justify-content: center; margin-bottom: 10px; }
+    .blue-opt {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 3px solid transparent;
+      cursor: pointer; position: relative;
+      transition: transform 0.2s, border-color 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .blue-opt span {
+      font-size: 9px; font-weight: 900; color: rgba(255,255,255,0.85);
+      font-family: 'Montserrat', sans-serif;
+    }
+    .blue-opt:hover { transform: scale(1.15); }
+    .blue-opt.active { border-color: var(--orange); transform: scale(1.15); }
+    .blue-opt[data-navy="#1B3074"].active { border-color: #F07D1A; }
+    .blue-current {
+      text-align: center; font-family: monospace;
+      font-size: 12px; font-weight: 700;
+      color: var(--orange); letter-spacing: 1px;
+    }
+
     @media (max-width: 640px) {
       nav { padding: 14px 20px; }
       .nav-links a { display: none; }
       .shapes-grid { gap: 40px; }
       .gallery-grid { grid-template-columns: 1fr; }
       .cert-grid { grid-template-columns: 1fr; }
+      .blue-picker { bottom: 16px; right: 16px; }
     }
   </style>
 </head>
@@ -462,6 +504,29 @@
   <div class="cursor-dot" id="cursorDot"></div>
   <div class="cursor-ring" id="cursorRing"></div>
   <div class="toast" id="toast"></div>
+
+  <!-- BLUE PICKER -->
+  <div class="blue-picker" id="bluePicker">
+    <div class="blue-picker-label">🎨 Pick Blue</div>
+    <div class="blue-options">
+      <button class="blue-opt" data-navy="#1B3074" data-navydark="#122158" data-navylight="#2A4499" title="Original — #1B3074" style="background:#1B3074;">
+        <span>Original</span>
+      </button>
+      <button class="blue-opt" data-navy="#0057A8" data-navydark="#004080" data-navylight="#1A6FBF" title="A — #0057A8" style="background:#0057A8;">
+        <span>A</span>
+      </button>
+      <button class="blue-opt" data-navy="#1463A5" data-navydark="#0D4F8A" data-navylight="#2278BD" title="B — #1463A5" style="background:#1463A5;">
+        <span>B</span>
+      </button>
+      <button class="blue-opt" data-navy="#0071BC" data-navydark="#005A96" data-navylight="#1A88CC" title="C — #0071BC" style="background:#0071BC;">
+        <span>C</span>
+      </button>
+      <button class="blue-opt" data-navy="#005EB8" data-navydark="#004A96" data-navylight="#1A74C8" title="D — #005EB8" style="background:#005EB8;">
+        <span>D</span>
+      </button>
+    </div>
+    <div class="blue-current" id="blueCurrentHex">#1B3074</div>
+  </div>
 
   <!-- NAV -->
   <nav id="nav">
@@ -920,6 +985,34 @@
       ring.style.left = rx - 16 + 'px'; ring.style.top = ry - 16 + 'px';
       requestAnimationFrame(animate);
     })();
+    // ── Blue Picker ──
+    const root = document.documentElement;
+    const blueOpts = document.querySelectorAll('.blue-opt');
+
+    // Mark original as active on load
+    blueOpts[0].classList.add('active');
+
+    blueOpts.forEach(btn => {
+      btn.addEventListener('click', () => {
+        blueOpts.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const navy      = btn.dataset.navy;
+        const navyDark  = btn.dataset.navydark;
+        const navyLight = btn.dataset.navylight;
+
+        root.style.setProperty('--navy',       navy);
+        root.style.setProperty('--navy-dark',  navyDark);
+        root.style.setProperty('--navy-light', navyLight);
+
+        document.getElementById('blueCurrentHex').textContent = navy;
+
+        // update color swatch card for navy blue live
+        const navySwatch = document.querySelector('.color-swatch[style*="1B3074"], .color-swatch[style*="0057A8"], .color-swatch[style*="1463A5"], .color-swatch[style*="0071BC"], .color-swatch[style*="005EB8"]');
+        if (navySwatch) navySwatch.style.background = navy;
+      });
+    });
+
     // ── Gallery Filter ──
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
